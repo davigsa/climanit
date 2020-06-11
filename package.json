@@ -1,0 +1,22 @@
+{
+  "name": "climanit",
+  "version": "1.0.0",
+  "description": "Twitter bot that posts about Niteroi weather",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cron": "^1.7.2",
+    "@types/express": "^4.17.6",
+    "@types/twitter": "^1.7.0",
+    "axios": "^0.19.2",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "twitter": "^1.7.1",
+    "yql": "^1.0.1"
+  }
+}
