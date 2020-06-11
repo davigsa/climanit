@@ -1,20 +1,14 @@
-const Twitter = require("twitter");
+const Twitter = require("twitter-lite");
+require("dotenv").config();
 
-const cliente = new Twitter({
-  consumer_key: process.env.consumer_key,
-  consumer_secret: process.env.consumer_secret,
-  access_token_key: process.env.access_token_key,
-  access_token_secret: process.env.access_token_secret,
+const secret = require("./secrets");
+
+const Client = new Twitter({
+  subdomain: "api",
+  version: "1.1",
+  consumer_key: secret.consumer_key,
+  consumer_secret: secret.consumer_secret,
+  access_token_key: secret.access_token_key,
+  access_token_secret: secret.access_token_secret,
 });
-
-client.post("statuses/update", { status: "I am a tweet" }, function (
-  error,
-  tweet,
-  response
-) {
-  if (!error) {
-    console.log(tweet);
-  }
-});
-
-module.exports = cliente;
+module.exports = Client;
