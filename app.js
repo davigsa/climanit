@@ -10,7 +10,9 @@ async function BotInit() {
   try {
     await axios
       .get(
-        `https://api.hgbrasil.com/weather?woeid=455891&key=${secret.api_key}&locale=pt`
+        `https://api.hgbrasil.com/weather?woeid=455891&key=${
+          secret.api_key || process.env.API_KEY
+        }&locale=pt`
       )
       .then((res) => {
         return (weatherData = {
@@ -49,6 +51,6 @@ async function BotInit() {
     console.log(err);
   }
 }
-
+console.log("Bot no ar");
 setInterval(() => BotInit(), 60000);
 ///60000 3600000
