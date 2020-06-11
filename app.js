@@ -50,5 +50,5 @@ async function BotInit() {
   }
 }
 
-setInterval(() => BotInit(), 3600000);
+setInterval(() => BotInit(), 60000);
 ///60000 3600000
