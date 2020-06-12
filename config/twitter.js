@@ -1,7 +1,5 @@
 const Twitter = require("twitter-lite");
 
-const secret = require("./secrets");
-
 const Client = new Twitter({
   subdomain: "api",
   version: "1.1",

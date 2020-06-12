@@ -2,7 +2,6 @@ const axios = require("axios");
 const moment = require("moment");
 require("dotenv").config();
 
-const secret = require("./config/secrets");
 const Client = require("./config/twitter");
 const conditionCode = require("./utils/conditionCode");
 
@@ -11,9 +10,7 @@ async function BotInit() {
   try {
     await axios
       .get(
-        `https://api.hgbrasil.com/weather?woeid=455891&key=${
-          secret.api_key || process.env.API_KEY
-        }&locale=pt`
+        `https://api.hgbrasil.com/weather?woeid=455891&key=${process.env.API_KEY}&locale=pt`
       )
       .then((res) => {
         return (weatherData = {
