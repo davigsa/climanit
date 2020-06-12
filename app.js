@@ -1,5 +1,6 @@
 const axios = require("axios");
 const moment = require("moment");
+require("dotenv").config();
 
 const secret = require("./config/secrets");
 const Client = require("./config/twitter");
@@ -50,6 +51,6 @@ async function BotInit() {
   }
 }
 console.log("Bot no ar");
-setInterval(() => BotInit(), 60000);
-// BotInit();
+// setInterval(() => BotInit(), 60000);
+BotInit();
 ///60000 3600000
