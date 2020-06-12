@@ -48,5 +48,5 @@ async function BotInit() {
   }
 }
 console.log("Bot no ar");
-setInterval(() => BotInit(), 60000);
+setInterval(() => BotInit(), 3600000);
 ///60000 3600000
