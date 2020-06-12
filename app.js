@@ -2,8 +2,8 @@ const axios = require("axios");
 const moment = require("moment");
 
 const secret = require("./config/secrets");
-
 const Client = require("./config/twitter");
+const conditionCode = require("./utils/conditionCode");
 
 async function BotInit() {
   let weatherData = {};
@@ -18,8 +18,7 @@ async function BotInit() {
         return (weatherData = {
           temp: res.data.results.temp,
           currently: res.data.results.currently,
-          time: res.data.results.time,
-          description: res.data.results.description,
+          condition_code: res.data.results.condition_code,
           forecast: res.data.results.forecast,
         });
       })
@@ -31,14 +30,13 @@ async function BotInit() {
       minutes <= 9 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
     //greetings logical
     const greetings =
-      weatherData.currently === "dia" ? "🌞 Bom dia" : "🌝 Boa noite";
-    //treating description
-    const treatedDesc =
-      weatherData.description.substring(0, 12) === "Parcialmente"
-        ? `céu ${weatherData.description.toLowerCase()}`
-        : weatherData.description.toLowerCase();
-    const status = `${greetings} , são exatamente ${completeHours}. A temperatura nesse momento é de ${weatherData.temp}°C com ${treatedDesc}.`;
-
+      (weatherData.currently === "dia" && hours >= 12
+        ? "🌞 Boa tarde"
+        : "🌞 Bom dia") || "🌝 Boa noite";
+    const status = `${greetings} , são exatamente ${completeHours}. A temperatura nesse momento é de ${
+      weatherData.temp
+    }°C ${conditionCode[weatherData.condition_code]}.`;
+    console.log(status);
     async function tweetAboutWeather() {
       await Client.post("statuses/update", {
         status: status,
@@ -53,4 +51,5 @@ async function BotInit() {
 }
 console.log("Bot no ar");
 setInterval(() => BotInit(), 60000);
+// BotInit();
 ///60000 3600000
