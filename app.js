@@ -1,12 +1,15 @@
-const axios = require("axios");
-const moment = require("moment");
 require("dotenv").config();
+const axios = require("axios");
+const moment = require("moment-timezone");
+const express = require("express");
 
 const Client = require("./config/twitter");
 const conditionCode = require("./utils/conditionCode");
 const posibleNames = require("./utils/posibleNames");
 const hellGifs = require("./utils/hellGifs");
 const winterIsGifs = require("./utils/winterIsGifs");
+
+const app = express();
 
 async function BotInit() {
   let weatherData = {};
@@ -27,11 +30,12 @@ async function BotInit() {
       .catch((err) => console.error(err));
 
     //get fucking hours
-    const hours = moment().hours();
-    const minutes = moment().minutes();
+    const moment2 = moment.tz("America/Sao_Paulo");
+    const hours = moment2.hours();
+    const minutes = moment2.minutes();
     const completeHours =
       minutes <= 9 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
-
+    console.log(completeHours);
     //logica da saudação
     const greetings =
       weatherData.currently === "dia" && hours >= 12
@@ -42,7 +46,7 @@ async function BotInit() {
 
     //função para retornar itens aleatórios dentro de um array
     function returnArray(array) {
-      return array[Math.floor(Math.random() * (array.length + 1))];
+      return array[Math.floor(Math.random() * array.length)];
     }
 
     //logica para final da mensagem de acordo com o tempo
@@ -91,7 +95,10 @@ async function BotInit() {
     console.log(err);
   }
 }
-console.log("Bot no ar");
+app.get("/bot", (req, res) => {
+  res.send("<h1>Bot no aaaaaar</h1>");
+});
+app.listen(3333);
 // BotInit();
 setInterval(() => BotInit(), 3600000);
 ///60000 3600000
