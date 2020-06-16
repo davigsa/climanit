@@ -2,6 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const moment = require("moment-timezone");
 const express = require("express");
+const path = require("path");
 
 const Client = require("./config/twitter");
 const conditionCode = require("./utils/conditionCode");
@@ -80,7 +81,7 @@ async function BotInit() {
             posibleNames
           )} , são exatamente ${completeHours}. A temperatura nesse momento é de ${
             weatherData.temp
-          }°C ${conditionCode[weatherData.condition_code]}.`;
+          }°C ${conditionCode[weatherData.condition_code]}`;
     console.log(status);
 
     async function tweetAboutWeather() {
@@ -95,10 +96,10 @@ async function BotInit() {
     console.log(err);
   }
 }
-app.get("/bot", (req, res) => {
-  res.send("<h1>Bot no aaaaaar</h1>");
+app.get("/api/bot", (req, res) => {
+  res.sendFile(path.join(__dirname + "/public/index.html"));
 });
-app.listen(3333);
+app.listen(process.env.PORT || 3333);
 // BotInit();
 setInterval(() => BotInit(), 3600000);
 ///60000 3600000
